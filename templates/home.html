@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>MiRenalApp</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- Menú de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-purple">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">MiRenalApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Profesionales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Herramientas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+
+                    {% if user.is_authenticated %}
+                        <!-- Menú desplegable de usuario -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle" style="font-size:1.5rem;"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li class="dropdown-item-text">
+                                    <strong>{{ user.username }}</strong>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <!-- Enlace de cerrar sesión -->
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                                <!-- Opciones adicionales -->
+                                <li><a class="dropdown-item" href="{% url 'mi_perfil' %}">Mi perfil</a></li>
+                                <li><a class="dropdown-item" href="#">Configuración</a></li>
+
+                                {% if user.perfil.tipo == "medico" %}
+                                    <!-- 🔹 Enlace exclusivo para médicos -->
+                                    <li><a class="dropdown-item" href="{% url 'panel_medico' %}">Panel de Médicos</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Encabezado -->
+    <header class="bg-light text-center p-5">
+        <h1 class="text-purple mb-3">Cuidando la salud renal de forma digital</h1>
+        <p class="lead">Una plataforma sencilla para que pacientes y profesionales puedan monitorear la alimentación, el tratamiento y el bienestar renal desde un solo lugar.</p>
+    </header>
+
+    <!-- Sección: ¿Para quién es esta plataforma? -->
+    <section class="container my-5">
+        <h2 class="text-center text-purple mb-4">¿Para quién es esta plataforma?</h2>
+        <div class="row justify-content-center g-4 text-center">
+            <div class="col-md-4">
+                <div class="card h-100 border-purple">
+                    <div class="card-body">
+                        <h5 class="card-title text-purple">Profesionales</h5>
+                        <p class="card-text">Visualiza datos clave de tus pacientes y apóyalos con educación sencilla sobre nutrición, diálisis y cuidados renales.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-purple">
+                    <div class="card-body">
+                        <h5 class="card-title text-purple">Herramientas</h5>
+                        <p class="card-text">Calculadora IMC básica, registro de proteínas y calorías y notas de seguimiento para consultas posteriores.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-purple">
+                    <div class="card-body">
+                        <h5 class="card-title text-purple">Familiares y cuidadores</h5>
+                        <p class="card-text">Aprende cómo apoyar mejor al paciente con recordatorios simples, tips de alimentación y señales de alarma básicas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Beneficios principales -->
+    <section class="container my-5">
+        <h2 class="text-center text-purple mb-4">Beneficios principales</h2>
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="card h-100 border-purple">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="bi bi-check-circle-fill text-purple" style="font-size:2rem;"></i>
+                        </div>
+                        <h5 class="card-title text-purple">Información organizada</h5>
+                        <p class="card-text">Información organizada del paciente en un solo lugar.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-purple">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="bi bi-bar-chart-fill text-purple" style="font-size:2rem;"></i>
+                        </div>
+                        <h5 class="card-title text-purple">Registros sencillos</h5>
+                        <p class="card-text">Registros sencillos para ver la evolución en el tiempo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-purple">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="bi bi-heart-fill text-purple" style="font-size:2rem;"></i>
+                        </div>
+                        <h5 class="card-title text-purple">Mejor comunicación</h5>
+                        <p class="card-text">Mejor comunicación entre paciente, familia y profesional.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-purple text-white text-center p-3 mt-5">
+        <p>© 2025 MiRenalApp – Página de ejemplo</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

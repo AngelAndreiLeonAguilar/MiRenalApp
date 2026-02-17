@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Mi Perfil</h2>
+    <div class="card border-purple">
+        <div class="card-body">
+            <p><strong>Usuario:</strong> {{ perfil.user.username }}</p>
+            <p><strong>Email:</strong> {{ perfil.user.email }}</p>
+            <p><strong>Rol:</strong> {{ perfil.tipo|title }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

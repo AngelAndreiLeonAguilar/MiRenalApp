@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - MiRenalApp</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Navbar igual que en home -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-purple">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">MiRenalApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección principal estilo home -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card shadow-lg border-0 rounded">
+                        <div class="card-body p-5">
+                            <h2 class="text-center text-purple mb-4">Crear cuenta</h2>
+                            <p class="text-center text-muted mb-4">
+                                Regístrate para acceder a las herramientas de MiRenalApp y cuidar tu salud renal de forma digital.
+                            </p>
+
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <!-- Usuario -->
+                                <div class="mb-4">
+                                    <label for="{{ form.username.id_for_label }}" class="form-label text-purple fw-bold">Nombre de usuario</label>
+                                    {{ form.username }}
+                                    <div class="form-text">Máximo 150 caracteres. Solo letras, números y @/./+/-/_.</div>
+                                </div>
+
+                                <!-- Correo -->
+                                <div class="mb-4">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label text-purple fw-bold">Correo electrónico</label>
+                                    {{ form.email }}
+                                </div>
+
+                                <!-- Contraseña -->
+                                <div class="mb-4">
+                                    <label for="{{ form.password1.id_for_label }}" class="form-label text-purple fw-bold">Contraseña</label>
+                                    {{ form.password1 }}
+                                    <div class="form-text">Debe tener al menos 8 caracteres, no ser demasiado común ni completamente numérica.</div>
+                                </div>
+
+                                <!-- Confirmación -->
+                                <div class="mb-4">
+                                    <label for="{{ form.password2.id_for_label }}" class="form-label text-purple fw-bold">Confirmar contraseña</label>
+                                    {{ form.password2 }}
+                                    <div class="form-text">Ingresa la misma contraseña para verificación.</div>
+                                </div>
+
+                                <button type="submit" class="btn btn-purple w-100">Registrarse</button>
+                            </form>
+
+                            <p class="mt-4 text-center">
+                                ¿Ya tienes cuenta? <a href="{% url 'login' %}" class="fw-bold" style="color:#ffffff;">Inicia sesión aquí</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer igual que en home -->
+    <footer class="bg-purple text-white text-center p-3 mt-5">
+        <p>© 2025 MiRenalApp – Página de ejemplo</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
