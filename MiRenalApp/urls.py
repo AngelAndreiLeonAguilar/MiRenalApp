@@ -7,6 +7,12 @@ urlpatterns = [
     # Home principal
     path('', usuarios_views.home, name='home'),
 
+    # Página "Quiénes somos"
+    path('quienes-somos/', usuarios_views.quienes_somos, name='quienes_somos'),
+
+    # Página "Profesionales de la salud"
+    path('profesionales/', usuarios_views.profesionales, name='profesionales'),
+
     # Registro de usuarios
     path('registro/', usuarios_views.registro, name='registro'),
 

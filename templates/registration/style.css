@@ -1,0 +1,64 @@
+/* Tipografía corporativa */
+body {
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Tarjeta elegante */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Inputs parejos y modernos */
+.form-control {
+    height: 50px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: all 0.2s ease-in-out;
+}
+.form-control:focus {
+    border-color: #004080;
+    box-shadow: 0 0 0 0.2rem rgba(0,64,128,0.25);
+}
+
+/* Botón corporativo */
+.btn-blue {
+    background-color: #004080;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+.btn-blue:hover {
+    background-color: #003366;
+    color: #fff;
+}
+
+/* Título del login */
+h2 {
+    font-weight: 700;
+    color: #004080;
+    border-bottom: 2px solid #004080;
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+/* Navbar y enlaces */
+.navbar-brand {
+    font-weight: 700;
+    color: #004080 !important;
+}
+.nav-link {
+    color: #004080 !important;
+    font-weight: 500;
+}
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    font-size: 0.9rem;
+}
