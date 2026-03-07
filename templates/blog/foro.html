@@ -1,0 +1,37 @@
+{% extends 'home.html' %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-primary fw-bold">Foro de Comunidad</h2>
+    
+    <div class="card p-4 shadow-sm mb-4">
+        <form method="POST">
+            {% csrf_token %}
+            <label class="form-label">¿Qué te parece nuestro servicio?</label>
+            <select name="estrellas" class="form-select mb-3 w-auto">
+                <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+                <option value="4">⭐⭐⭐⭐ Muy Bueno</option>
+                <option value="3">⭐⭐⭐ Regular</option>
+                <option value="2">⭐⭐ Malo</option>
+                <option value="1">⭐ Muy Malo</option>
+            </select>
+            <textarea name="comentario" class="form-control mb-3" placeholder="Escribe tu opinión..."></textarea>
+            <button type="submit" class="btn btn-primary">Publicar</button>
+        </form>
+    </div>
+
+    {% for op in opiniones %}
+    <div class="card mb-3 p-3 border-0 shadow-sm">
+        <div class="d-flex justify-content-between">
+            <strong>@{{ op.usuario.username }}</strong>
+            <span class="text-warning">Estrellas: {{ op.estrellas }}</span>
+        </div>
+        <p class="mt-2">{{ op.comentario }}</p>
+        <div class="d-flex gap-2">
+            <a href="{% url 'dar_like' op.id %}" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-hand-thumbs-up"></i> {{ op.likes.count }}
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

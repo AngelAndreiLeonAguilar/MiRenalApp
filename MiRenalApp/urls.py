@@ -5,6 +5,14 @@ from django.contrib.auth import views as auth_views
 from apps.blog import views as blog_views 
 
 urlpatterns = [
+    # Admin (siempre arriba)
+    path('admin/', admin.site.urls),
+
+    # Rutas del Foro (Ponlas arriba para que tengan prioridad)
+    path('foro/', blog_views.foro, name='foro'),
+    path('dar-like/<int:pk>/', blog_views.dar_like, name='dar_like'),
+    path('dar-dislike/<int:pk>/', blog_views.dar_dislike, name='dar_dislike'),
+    
     # Home principal
     path('', usuarios_views.home, name='home'),
 
@@ -31,9 +39,4 @@ urlpatterns = [
 
     # Admin
     path('admin/', admin.site.urls),
-    
-    # Rutas del Foro
-    path('foro/', blog_views.foro, name='foro'),
-    path('dar-like/<int:pk>/', blog_views.dar_like, name='dar_like'),
-    path('dar-dislike/<int:pk>/', blog_views.dar_dislike, name='dar_dislike'),
 ]

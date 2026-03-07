@@ -57,7 +57,9 @@
             </div>
         </div>
     </nav>
-            
+            {% block content %}  <header class="bg-blue text-white text-center py-4">
+        <div class="container">
+
             <!-- Botón menú lateral (solo visible en móvil) -->
             <button class="btn btn-blue d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
                 <i class="bi bi-list"></i> Menú
@@ -174,6 +176,8 @@
             </div>
         </div>
     </section>
+
+    {% endblock %}  <footer class="bg-blue text-white mt-5 pt-4 pb-2">
 
     <!-- Footer -->
     <footer class="bg-blue text-white mt-5 pt-4 pb-2">
