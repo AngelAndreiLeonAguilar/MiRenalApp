@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from apps.usuarios import views as usuarios_views
 from django.contrib.auth import views as auth_views
+from apps.blog import views as blog_views 
 
 urlpatterns = [
     # Home principal
@@ -22,12 +23,17 @@ urlpatterns = [
     # Logout personalizado que redirige al home
     path('logout/', usuarios_views.custom_logout, name='logout'),
 
-    # Vista de perfil del usuario autenticado
-    path('mi-perfil/', usuarios_views.mi_perfil, name='mi_perfil'),
+    # Vista de perfil corregida (coincide con el HTML)
+    path('mi-perfil/', usuarios_views.mi_perfil, name='perfil'),
 
     # Panel exclusivo para médicos
     path('panel-medico/', usuarios_views.panel_medico, name='panel_medico'),
 
     # Admin
     path('admin/', admin.site.urls),
+    
+    # Rutas del Foro
+    path('foro/', blog_views.foro, name='foro'),
+    path('dar-like/<int:pk>/', blog_views.dar_like, name='dar_like'),
+    path('dar-dislike/<int:pk>/', blog_views.dar_dislike, name='dar_dislike'),
 ]
