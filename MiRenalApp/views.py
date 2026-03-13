@@ -32,10 +32,10 @@ def custom_logout(request):
 def panel_medico(request):
     return render(request, "usuarios/panel_medico.html")
 
-# Vista de perfil del usuario autenticado
 @login_required
 def mi_perfil(request):
-    perfil = Perfil.objects.get(user=request.user)
+    # Esto busca el perfil y, si no existe, lo crea automáticamente
+    perfil, created = Perfil.objects.get_or_create(user=request.user)
     return render(request, "usuarios/mi_perfil.html", {"perfil": perfil})
 
 # Página "Quiénes somos"

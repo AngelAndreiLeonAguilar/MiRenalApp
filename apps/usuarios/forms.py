@@ -9,6 +9,14 @@ class RegistroForm(UserCreationForm):
         widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Correo electrónico'})
     )
 
+    # El método debe estar fuera del campo email, pero dentro de la clase
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        # Verificamos si ya existe un usuario con ese correo
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este correo electrónico ya está registrado. Usa otro o recupera tu contraseña.")
+        return email
+
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
