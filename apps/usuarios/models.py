@@ -13,6 +13,8 @@ class Perfil(models.Model):
     tipo = models.CharField(max_length=10, choices=TIPOS_USUARIO, default='paciente')
     # Nuevo campo para el sistema de moderación
     esta_bloqueado = models.BooleanField(default=False) 
+    # NUEVO: Campo para la foto de perfil
+    imagen = models.ImageField(upload_to='perfiles/', default='perfiles/default.png', null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.tipo}"
