@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Calculadora de Riesgo Nutricional</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Edad (años)</label>
+                            <input type="number" name="edad" class="form-control" required min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Peso Actual (kg)</label>
+                            <input type="number" step="0.1" name="peso" class="form-control" required>
+                            <small class="text-muted">Si está en Diálisis, use su <strong>peso seco</strong>.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Talla (m)</label>
+                            <input type="number" step="0.01" name="talla" class="form-control" required placeholder="Ej: 1.70">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Calcular Resultado</button>
+                    </form>
+
+                    {% if resultado %}
+                    <hr>
+                    <div class="alert alert-{{ resultado.color }} text-center">
+                        <h5>Resultado IMC: {{ resultado.imc }}</h5>
+                        <p><strong>Categoría:</strong> {{ resultado.categoria }}</p>
+                        <hr>
+                        <p><strong>Conducta sugerida:</strong> {{ resultado.conducta }} [cite: 36]</p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <small class="text-danger">Nota: Esta herramienta es de tamizaje y no reemplaza el diagnóstico clínico-nutricional de un profesional.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

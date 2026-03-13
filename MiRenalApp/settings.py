@@ -89,8 +89,10 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"  # necesario para producción
 
 # Redirecciones de login/logout
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = 'home' 
+
+# Redirigir a la página de login tras cerrar sesión
+LOGOUT_REDIRECT_URL = 'login'
 
 # settings.py
 
@@ -104,3 +106,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = 'tu-correo@gmail.com'
 # EMAIL_HOST_PASSWORD = 'tu-contraseña-de-aplicación'
+# settings.py (al final)
+
+import os
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

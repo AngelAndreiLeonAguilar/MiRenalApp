@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-primary mb-4 text-center">Información del Sector Salud 🏥</h2>
+    <p class="lead text-center mb-5">Cuidar a los pacientes de forma integral, controlando síntomas y complicaciones para preservar su bienestar y calidad de vida.</p>
+    <p class="lead text-center mb-5">Tratamientos disponibles:</p>
+    <div class="accordion" id="accordionTratamientos">
+        
+        <div class="accordion-item mb-3 shadow-sm">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                    <span class="fs-5">💊 Tratamiento Conservador</span>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionTratamientos">
+                <div class="accordion-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p><strong>¿Qué es?</strong> Opción terapéutica no incluye diálisis ni trasplante, y se centra en el
+manejo activo de la enfermedad, los síntomas y las condiciones asociadas. Su
+objetivo es acompañar al paciente con un plan de cuidado integral, personalizado
+y basado en sus necesidades clínicas y personales.</p>
+                            <p><strong>¿Cómo se trata?</strong> Manejo integral que combina control médico, nutrición clínica,
+seguimiento de comorbilidades (como hipertensión y diabetes), tratamiento de
+complicaciones y apoyo emocional.</p>
+                            <p><strong>¿Qué se evalúa?</strong> Función renal y la progresión de la enfermedad, así como el
+estado general del paciente: síntomas (fatiga, náuseas, apetito, sueño, dolor),
+presión arterial, glucosa, estado nutricional, anemia, equilibrio de líquidos, otras
+enfermedades asociadas y bienestar emocional.</p>
+                            <p><strong>Objetivos:</strong> Preservar la función renal el mayor tiempo posible, controlar síntomas y
+complicaciones, reducir hospitalizaciones innecesarias, mantener la mejor
+calidad de vida posible y brindar un acompañamiento integral acorde con los
+valores y preferencias del paciente.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <img src="https://www.niddk.nih.gov/-/media/Images/Health-Information/Kidney/doctor_woman_330x220.jpg" class="img-fluid rounded shadow-sm" alt="Conservador">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item mb-3 shadow-sm">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                    <span class="fs-5">🩸 Hemodiálisis</span>
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionTratamientos">
+                <div class="accordion-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p><strong>¿Qué es?</strong> Tratamiento de sustitución renal en el que la sangre se extrae del
+cuerpo a través de un acceso vascular, circula por un dializador (filtro) y luego
+regresa al paciente.
+En este proceso, una solución de diálisis facilita la eliminación de productos de
+desecho, exceso de sal y agua, además de contribuir al control del equilibrio de
+ciertos minerales en sangre. La hemodiálisis puede realizarse en un centro de
+diálisis o en el hogar, según indicación médica y condiciones del paciente.</p>
+                            <p><strong>¿Cómo se trata?</strong> Prescripción individualizada definida por Nefrología, que
+considera la frecuencia y duración de las sesiones, el volumen de líquido a retirar y
+los parámetros del tratamiento. En la práctica, se requiere un acceso vascular
+funcional (fístula, injerto o, en algunos casos, catéter), monitoreo durante la
+sesión y seguimiento médico periódico.</p>
+                            <p><strong>¿Qué se evalúa?</strong> Síntomas del paciente, tolerancia intradiálisis (por ejemplo: hipotensión,
+calambres, fatiga), presión arterial, control del volumen/líquidos y evolución del
+peso.
+También se valora el acceso vascular (funcionamiento, flujo, signos de infección o
+trombosis) y parámetros de laboratorio para ajustar la terapia, como
+electrolitos/minerales y otros indicadores según el estado clínico.</p>
+                            <p><strong>Objetivos:</strong> Remover de forma segura desechos y exceso de líquido, mantener el equilibrio
+hidroelectrolítico y apoyar el control de la presión arterial, reduciendo síntomas
+urémicos y complicaciones asociadas a la insuficiencia renal avanzada.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <img src="https://centromedicoabc.com/wp-content/uploads/2024/05/hemodialisis-y-su-funcion-scaled-1.webp" class="img-fluid rounded shadow-sm" alt="Hemodiálisis">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item mb-3 shadow-sm">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                    <span class="fs-5">🔄 Diálisis Peritoneal</span>
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionTratamientos">
+                <div class="accordion-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p><strong>¿Qué es?</strong> Tratamiento para la insuficiencia renal en el que se usa el revestimiento interno del
+abdomen (peritoneo) como filtro natural.
+A través de un catéter abdominal, se introduce una solución de diálisis que
+permanece un tiempo en la cavidad peritoneal, absorbe desechos y exceso de
+líquido, y luego se drena. Este proceso se repite mediante intercambios
+programados.</p>
+                            <p><strong>¿Cómo se trata?</strong> Colocación previa de un catéter peritoneal y un período de cicatrización antes de
+iniciar el esquema completo. Luego, el paciente (y/o cuidador) recibe
+entrenamiento por parte de enfermería para realizar los intercambios, prevenir
+infecciones y manejar los insumos en casa.
+Existen dos modalidades principales: diálisis peritoneal continua ambulatoria
+(manual) y diálisis peritoneal automatizada (con cicladora, usualmente nocturna).
+La indicación del tipo de DP se individualiza según condición clínica, autonomía,
+entorno y estilo de vida.</p>
+                            <p><strong>¿Qué se evalúa?</strong> Eficacia del tratamiento (adecuación dialítica) mediante análisis de sangre y
+recolección de líquido de diálisis usado; si el paciente aún orina, también puede
+requerirse recolección de orina
+De forma periódica el estado del catéter y del sitio de salida, la técnica de
+intercambio, la adherencia, el balance de líquidos, la tolerancia clínica y la
+presencia de complicaciones, especialmente infección del sitio de salida o
+peritonitis.</p>
+                            <p><strong>Objetivos:</strong> Reemplazar de forma segura parte de la función renal, remover toxinas y exceso
+de líquido, mantener el equilibrio hidroelectrolítico, prevenir complicaciones y
+favorecer una buena calidad de vida.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <img src="https://hemodialisisfuentesecatepec.com/wp-content/uploads/2019/10/dialisis-peritoneal.jpg" class="img-fluid rounded shadow-sm" alt="Peritoneal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item mb-3 shadow-sm">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                    <span class="fs-5">🌱 Trasplante Renal</span>
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionTratamientos">
+                <div class="accordion-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p><strong>¿Qué es?</strong> Tratamiento para la insuficiencia renal en el que se implanta un riñón sano de un
+donante (vivo o fallecido) para reemplazar la función renal perdida. Es un
+tratamiento de reemplazo renal, pero no constituye una cura definitiva, ya que el
+paciente necesita controles médicos continuos y medicación para evitar el
+rechazo.</p>
+                            <p><strong>¿Cómo se trata?</strong> Manejo del paciente en trasplante incluye varias etapas: evaluación como
+candidato en un centro de trasplante, estudios clínicos y de compatibilidad,
+posible ingreso a lista de espera (si no hay donante vivo), cirugía de trasplante y
+seguimiento postoperatorio por el equipo de trasplante y Nefrología.
+Después del trasplante, el tratamiento incluye inmunosupresores diarios,
+controles clínicos regulares y exámenes de laboratorio para vigilar la función del
+injerto y detectar complicaciones tempranas.</p>
+                            <p><strong>¿Qué se evalúa?</strong> Fase pretrasplante se evalúa si el paciente es candidato mediante pruebas de
+sangre, compatibilidad, estudios de corazón y otros órganos, tamizaje de
+infecciones y valoración de salud mental/emocional, además de la capacidad
+para adherirse al tratamiento posterior
+Fase postrasplante se evalúan la función del riñón trasplantado, signos de rechazo
+o infección, efectos adversos de inmunosupresores, adherencia terapéutica y
+evolución clínica general, con controles y exámenes de sangre periódicos.</p>
+                            <p><strong>Objetivos:</strong> Seleccionar adecuadamente a los candidatos, lograr un trasplante seguro y
+exitoso, preservar la función del injerto a largo plazo, prevenir rechazo y
+complicaciones infecciosas/metabólicas, y sostener la mejor calidad de vida
+posible con seguimiento integral y educación continua del paciente y su familia.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnuJ-Ae0KrhiyC-erJePRtmkXEMqUSKjqQxA&s" class="img-fluid rounded shadow-sm" alt="Trasplante">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-5 mb-5">
+        <a href="{% url 'calculadora_imc' %}" class="btn btn-danger btn-lg px-5 shadow">Ir a la Calculadora de IMC 📊</a>
+         <a href="{% url 'test_riesgo' %}" class="btn btn-primary btn-lg px-5 shadow">
+            Test de Riesgo 📝
+        </a>
+    </div>
+</div>
+{% endblock %}

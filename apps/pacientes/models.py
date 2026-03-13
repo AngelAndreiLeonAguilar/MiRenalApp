@@ -16,3 +16,11 @@ class Pacientes(models.Model):
 
     def __str__(self):
         return f"{self.usuario.username} - {self.fecha.strftime('%d/%m/%Y %H:%M')}"
+    
+class EvaluacionNutricional(models.Model):
+    paciente = models.ForeignKey(User, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(auto_now_add=True)
+    peso = models.FloatField() # kg [cite: 7]
+    talla = models.FloatField() # m [cite: 6]
+    imc = models.FloatField() # Peso / Talla² 
+    tipo_paciente = models.CharField(max_length=50) # Conservador, Hemodiálisis, etc. [cite: 8-12]
