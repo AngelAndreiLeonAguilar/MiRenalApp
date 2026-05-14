@@ -1,26 +1,34 @@
 services:
+  db:
+    image: postgres:15
+    container_name: mirenal_db
+    restart: always
+    environment:
+      POSTGRES_DB: mirenalapp_db
+      POSTGRES_USER: manuel
+      POSTGRES_PASSWORD: abcd632246
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - nginx-proxy-network
+
   web:
     build: .
-    container_name: django_app
+    container_name: mirenal_app
+    restart: always
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
-    ports:
-      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://manuel:abcd632246@db:5432/mirenalapp_db
     depends_on:
       - db
+    networks:
+      - nginx-proxy-network
 
-  db:
-    image: postgres:15
-    container_name: postgres_db
-    environment:
-      POSTGRES_DB: mirenalapp_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234567890
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+networks:
+  nginx-proxy-network:
+    external: true
 
 volumes:
   postgres_data:
