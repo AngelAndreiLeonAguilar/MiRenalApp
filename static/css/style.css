@@ -80,3 +80,9 @@ footer ul {
 footer .border-top {
     border-color: rgba(255, 255, 255, 0.3) !important;
 }
+
+.text-purple:hover {
+    color: #6f42c1; /* O el tono de morado que estés usando */
+    transform: scale(1.1);
+    transition: 0.3s;
+}

@@ -10,14 +10,14 @@ urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
 
-    # Rutas del Foro
-    path('foro/', blog_views.foro, name='foro'),
-    path('dar-like/<int:pk>/', blog_views.dar_like, name='dar_like'),
-    path('dar-dislike/<int:pk>/', blog_views.dar_dislike, name='dar_dislike'),
+    # Rutas del Foro (Cambiadas de blog_views a usuarios_views)
+    path('foro/', usuarios_views.foro, name='foro'),
+    path('dar-like/<int:pk>/', usuarios_views.dar_like, name='dar_like'),
+    path('dar-dislike/<int:pk>/', usuarios_views.dar_dislike, name='dar_dislike'),
     
-    # Moderación (ADMIN) - Corregido con blog_views
-    path('eliminar/<int:opinion_id>/', blog_views.eliminar_comentario, name='eliminar_comentario'),
-    path('bloquear/<int:usuario_id>/', blog_views.alternar_bloqueo, name='alternar_bloqueo'),
+    # Moderación (ADMIN) - Dirigidas a usuarios_views
+    path('eliminar/<int:opinion_id>/', usuarios_views.eliminar_comentario, name='eliminar_comentario'),
+    path('bloquear/<int:usuario_id>/', usuarios_views.alternar_bloqueo, name='alternar_bloqueo'),
 
     # Home y Páginas Informativas
     path('', usuarios_views.home, name='home'),
