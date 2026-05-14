@@ -112,3 +112,11 @@ import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MiRenalApp/settings.py
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# MiRenalApp/settings.py
+
+LOGIN_URL = 'login'  # Esto le dice a Django que use tu ruta llamada 'login'
+LOGIN_REDIRECT_URL = 'home'  # A dónde ir después de loguearse
+LOGOUT_REDIRECT_URL = 'home' # A dónde ir al cerrar sesión

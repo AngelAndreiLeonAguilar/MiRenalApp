@@ -45,3 +45,4 @@ def quienes_somos(request):
 # Página "Profesionales de la salud"
 def profesionales(request):
     return render(request, "profesionales.html")
+

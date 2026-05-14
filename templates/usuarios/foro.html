@@ -14,35 +14,51 @@
     </div>
     
     <div class="card p-4 shadow-sm mb-4 border-0">
-        {% if user.perfil.esta_bloqueado %}
-            <div class="alert alert-danger mb-0">
-                <i class="bi bi-exclamation-octagon"></i> Tu cuenta ha sido bloqueada. No puedes publicar nuevos comentarios.
-            </div>
-        {% else %}
-            <form method="POST">
-                {% csrf_token %}
-                <label class="form-label fw-bold">¿Qué te parece nuestro servicio?</label>
-                <div class="d-flex gap-3 align-items-center mb-3">
-                    <select name="estrellas" class="form-select w-auto">
-                        <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
-                        <option value="4">⭐⭐⭐⭐ Muy Bueno</option>
-                        <option value="3">⭐⭐⭐ Regular</option>
-                        <option value="2">⭐⭐ Malo</option>
-                        <option value="1">⭐ Muy Malo</option>
-                    </select>
+        {% if user.is_authenticated %}
+            {% if user.perfil.esta_bloqueado %}
+                <div class="alert alert-danger mb-0">
+                    <i class="bi bi-exclamation-octagon"></i> Tu cuenta ha sido bloqueada. No puedes publicar nuevos comentarios.
                 </div>
-                <textarea name="comentario" class="form-control mb-3" placeholder="Escribe tu opinión aquí..." rows="3" required></textarea>
-                <button type="submit" class="btn btn-primary px-4">Publicar Comentario</button>
-            </form>
+            {% else %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <label class="form-label fw-bold">¿Qué te parece nuestro servicio?</label>
+                    <div class="d-flex gap-3 align-items-center mb-3">
+                        <select name="estrellas" class="form-select w-auto">
+                            <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+                            <option value="4">⭐⭐⭐⭐ Muy Bueno</option>
+                            <option value="3">⭐⭐⭐ Regular</option>
+                            <option value="2">⭐⭐ Malo</option>
+                            <option value="1">⭐ Muy Malo</option>
+                        </select>
+                    </div>
+                    <textarea name="comentario" class="form-control mb-3" placeholder="Escribe tu opinión aquí..." rows="3" required></textarea>
+                    <button type="submit" class="btn btn-primary px-4">Publicar Comentario</button>
+                </form>
+            {% endif %}
+        {% else %}
+            <div class="text-center py-3">
+                <p class="mb-3 text-muted">¿Tienes algo que compartir? Únete a la comunidad para publicar.</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary">Iniciar sesión</a>
+                    <a href="{% url 'registro' %}" class="btn btn-primary">Crear una cuenta</a>
+                </div>
+            </div>
         {% endif %}
     </div>
 
     {% for op in opiniones %}
     <div class="card mb-3 p-3 border-0 shadow-sm">
         <div class="d-flex justify-content-between align-items-start">
-            <div>
-                <strong class="text-blue">@{{ op.usuario.username }}</strong>
-                <small class="text-muted ms-2">{{ op.fecha_creacion|date:"d M, Y H:i" }}</small>
+            <div class="d-flex align-items-center">
+                {% if op.usuario.perfil.imagen %}
+    <img src="{{ op.usuario.perfil.imagen.url }}" class="rounded-circle me-3" style="width: 45px; height: 45px; object-fit: cover;">
+{% endif %}
+                <div>
+                    <strong class="text-blue">@{{ op.usuario.username }}</strong>
+                    <br>
+                    <small class="text-muted">{{ op.fecha_creacion|date:"d M, Y H:i" }}</small>
+                </div>
             </div>
             <span class="badge rounded-pill bg-light text-warning border">
                 {{ op.estrellas }} ⭐
@@ -63,7 +79,7 @@
             {% if user.is_staff %}
             <div class="d-flex gap-2">
                 <a href="{% url 'eliminar_comentario' op.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este comentario?')">
-                    <i class="bi bi-trash"></i> Eliminar
+                    <i class="bi bi-trash"></i>
                 </a>
                 <a href="{% url 'alternar_bloqueo' op.usuario.id %}" class="btn btn-warning btn-sm text-dark">
                     <i class="bi bi-slash-circle"></i> 
@@ -79,30 +95,16 @@
     </div>
     {% endfor %}
 
-    <nav aria-label="Navegación de comentarios" class="mt-4">
+    <nav aria-label="Navegación" class="mt-4">
         <ul class="pagination justify-content-center shadow-sm">
             {% if opiniones.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ opiniones.previous_page_number }}&ordenar={{ filtro_actual }}">Anterior</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+                <li class="page-item"><a class="page-link" href="?page={{ opiniones.previous_page_number }}&ordenar={{ filtro_actual }}">Anterior</a></li>
             {% endif %}
-
-            {% for num in opiniones.paginator.page_range %}
-                {% if num >= opiniones.number|add:-2 and num <= opiniones.number|add:2 %}
-                    <li class="page-item {% if opiniones.number == num %}active{% endif %}">
-                        <a class="page-link" href="?page={{ num }}&ordenar={{ filtro_actual }}">{{ num }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
+            
+            <li class="page-item active"><span class="page-link">{{ opiniones.number }}</span></li>
 
             {% if opiniones.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ opiniones.next_page_number }}&ordenar={{ filtro_actual }}">Siguiente</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+                <li class="page-item"><a class="page-link" href="?page={{ opiniones.next_page_number }}&ordenar={{ filtro_actual }}">Siguiente</a></li>
             {% endif %}
         </ul>
     </nav>

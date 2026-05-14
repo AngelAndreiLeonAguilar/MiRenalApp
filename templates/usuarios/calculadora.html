@@ -32,7 +32,7 @@
                         <h5>Resultado IMC: {{ resultado.imc }}</h5>
                         <p><strong>Categoría:</strong> {{ resultado.categoria }}</p>
                         <hr>
-                        <p><strong>Conducta sugerida:</strong> {{ resultado.conducta }} [cite: 36]</p>
+                        <p><strong>Conducta sugerida:</strong> {{ resultado.conducta }} </p>
                     </div>
                     {% endif %}
                 </div>
@@ -40,6 +40,9 @@
                     <small class="text-danger">Nota: Esta herramienta es de tamizaje y no reemplaza el diagnóstico clínico-nutricional de un profesional.</small>
                 </div>
             </div>
+        </div>
+        <div class="card-footer text-center py-3">
+            <a href="{% url 'sector_salud_info' %}" class="text-decoration-none">← Volver a Información</a>
         </div>
     </div>
 </div>

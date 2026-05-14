@@ -14,7 +14,7 @@ class Perfil(models.Model):
     # Nuevo campo para el sistema de moderación
     esta_bloqueado = models.BooleanField(default=False) 
     # NUEVO: Campo para la foto de perfil
-    imagen = models.ImageField(upload_to='perfiles/', default='perfiles/default.png', null=True, blank=True)
+    imagen = models.ImageField(default='default.jpg', upload_to='perfiles', null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.tipo}"
@@ -29,3 +29,18 @@ def crear_perfil_usuario(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def guardar_perfil_usuario(sender, instance, **kwargs):
     instance.perfil.save()
+    
+# apps/usuarios/models.py
+
+class Opinion(models.Model):
+    # Agregamos related_name para que sea único
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='opiniones_usuarios') 
+    comentario = models.TextField()
+    estrellas = models.IntegerField(default=5)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='opiniones_likes', blank=True)
+    dislikes = models.ManyToManyField(User, related_name='opiniones_dislikes', blank=True)
+
+    def __str__(self):
+        return f"Opinión de {self.usuario.username}"
+    
