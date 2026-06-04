@@ -1,0 +1,50 @@
+# ==========================================
+# Archivos de Configuración y Secretos (Saneamiento)
+# ==========================================
+.env
+.env.prod
+*.env
+
+# ==========================================
+# Archivos Temporales de Python y Django
+# ==========================================
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.mo
+*.pot
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# ==========================================
+# Contenido Subido por Usuarios / Estáticos (Producción)
+# ==========================================
+media/
+staticfiles/
+
+# ==========================================
+# Entornos Virtuales
+# ==========================================
+.venv/
+venv/
+ENV/
+env/
+
+# ==========================================
+# Archivos Basura del Sistema o IDEs
+# ==========================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Activador.txt

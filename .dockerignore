@@ -1,0 +1,29 @@
+# Excluir el control de versiones de Git
+.git
+.gitignore
+
+# Excluir archivos de configuración con secretos (Saneamiento crítico)
+.env
+*.env
+.dockerignore
+
+# Excluir archivos temporales y cachés de Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Excluir archivos multimedia subidos por usuarios y estáticos locales
+media/
+staticfiles/
+
+# Excluir entornos virtuales locales
+.venv/
+venv/
+env/
+
+# Archivos basura del sistema o IDEs
+.vscode/
+.idea/
+.DS_Store
+Activador.txt

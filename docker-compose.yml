@@ -1,34 +1,42 @@
 services:
+  web:
+    build: .
+    container_name: django_app
+    # Quitamos el 'command' de desarrollo para que use el Gunicorn del Dockerfile
+    # Quitamos el volumen '.:/app' para que el código sea autónomo en la imagen
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - nginx-proxy-network  # Conectado al mundo exterior mediante el proxy
+      - db_network           # Conectado internamente a la base de datos
+
   db:
     image: postgres:15
-    container_name: mirenal_db
-    restart: always
+    container_name: postgres_db
     environment:
       POSTGRES_DB: mirenalapp_db
       POSTGRES_USER: manuel
       POSTGRES_PASSWORD: abcd632246
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U manuel -d mirenalapp_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
-      - nginx-proxy-network
-
-  web:
-    build: .
-    container_name: mirenal_app
-    restart: always
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
-    environment:
-      - DATABASE_URL=postgres://manuel:abcd632246@db:5432/mirenalapp_db
-    depends_on:
-      - db
-    networks:
-      - nginx-proxy-network
-
-networks:
-  nginx-proxy-network:
-    external: true
+      - db_network           # Totalmente aislada del proxy exterior
 
 volumes:
   postgres_data:
+
+networks:
+  nginx-proxy-network:
+    external: true           # Docker sabe que ya la creamos globalmente
+  db_network:
+    internal: true           # Red privada exclusiva para Django <-> Postgres
