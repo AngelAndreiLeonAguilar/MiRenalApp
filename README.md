@@ -17,6 +17,13 @@ cd MiRenalApp
 2. Configurar el archivo de entorno
 Crea tu archivo .env a partir de la plantilla de ejemplo y configura tus credenciales de producción y bases de datos:
 
+### 🔑 Variables obligatorias en el .env
+Asegúrate de definir estas variables en tu archivo `.env`:
+- `SECRET_KEY`: Una clave larga y aleatoria.
+- `DEBUG`: `False` para producción.
+- `ALLOWED_HOSTS`: Tu dominio o IP del servidor.
+- `DB_NAME`, `DB_USER`, `DB_PASSWORD`: Credenciales para la base de datos PostgreSQL.
+
 Bash
 cp .env.example .env
 nano .env

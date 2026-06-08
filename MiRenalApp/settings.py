@@ -66,13 +66,18 @@ WSGI_APPLICATION = 'MiRenalApp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='nombre_db'),
-        'USER': config('DB_USER', default='usuario_db'),
-        'PASSWORD': config('DB_PASSWORD', default='contraseña_db'),
-        'HOST': config('DB_HOST', default='db'),  # "db" es el nombre del servicio en docker-compose
-        'PORT': config('DB_PORT', default='5432'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', default='5432'), # El puerto 5432 es estándar, este sí es aceptable
     }
 }
+
+# Fuerza el dominio para que los enlaces en los correos sean clickeables y válidos
+SITE_NAME = 'Kidnely Health'
+# Aumentar tiempo de espera para evitar el cierre de conexión por parte del servidor
+EMAIL_TIMEOUT = 30 # Segundos
 
 # Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
@@ -100,7 +105,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # 3. CRUCIAL: Indicamos a Django dónde buscar la carpeta verde 'static'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'MiRenalApp' / 'static',
 ]
 
 # 4. Configuración para el contenido subido por usuarios (Imágenes de pacientes/artículos)
@@ -117,12 +122,20 @@ LOGOUT_REDIRECT_URL = 'home'
 # ==============================================================================
 # CONFIGURACIÓN DE CORREO ELECTRÓNICO
 # ==============================================================================
-# Durante desarrollo, el correo aparecerá en tu terminal
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
-EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# En settings.py
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]

@@ -6,9 +6,24 @@ from apps.blog import views as blog_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.core.mail import send_mail
+from django.http import HttpResponse
+
+def test_email_view(request):
+     send_mail(
+          'Prueba desde navegador',
+          'Si lees esto, el navegador puede enviar correos.',
+          'kidnelyhealthappweb@gmail.com',
+          ['TU_CORREO_REAL@gmail.com'],
+          fail_silently=False, # Esto lanzará el error en la web si falla
+     )
+     return HttpResponse("Correo enviado")
+
 urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
+    
+    path('test-email/', test_email_view, name='test_email'),
 
     # Rutas del Foro (Cambiadas de blog_views a usuarios_views)
     path('foro/', usuarios_views.foro, name='foro'),
