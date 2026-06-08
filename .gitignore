@@ -41,10 +41,11 @@ ENV/
 env/
 
 # ==========================================
-# Archivos Basura del Sistema o IDEs
+# Archivos Basura del Sistema o IDEs (Modificación Observación 11)
 # ==========================================
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 Activador.txt
+estructura.txt

@@ -9,10 +9,15 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Seguridad
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-key')
-DEBUG = config('DEBUG', default=True, cast=bool)
-ALLOWED_HOSTS = ['*']
+#Seguridad
+# Modificación N4: Quitar el valor por defecto inseguro para forzar que falle si no hay .env
+SECRET_KEY = config('SECRET_KEY')
+
+# Modificación 4: Por seguridad, el valor por defecto si no se encuentra la variable debe ser False
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+# Modificación 5: Leer la lista de hosts desde el archivo .env separada por comas
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=lambda v: [s.strip() for s in v.split(',')])
 
 # Aplicaciones
 INSTALLED_APPS = [
@@ -88,25 +93,22 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"  # necesario para producción
 
-# Redirecciones de login/logout
-LOGIN_REDIRECT_URL = 'home' 
-
-# Redirigir a la página de login tras cerrar sesión
-LOGOUT_REDIRECT_URL = 'login'
+# ==============================================================================
+# AUTENTICACIÓN Y REDIRECCIONES
+# ==============================================================================
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # settings.py
 
 # Durante desarrollo, el correo aparecerá en tu terminal
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# Cuando estés listo para producción con Gmail/Outlook:
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'tu-correo@gmail.com'
-# EMAIL_HOST_PASSWORD = 'tu-contraseña-de-aplicación'
-# settings.py (al final)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 
 import os
 
@@ -114,9 +116,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MiRenalApp/settings.py
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# MiRenalApp/settings.py
-
-LOGIN_URL = 'login'  # Esto le dice a Django que use tu ruta llamada 'login'
-LOGIN_REDIRECT_URL = 'home'  # A dónde ir después de loguearse
-LOGOUT_REDIRECT_URL = 'home' # A dónde ir al cerrar sesión
