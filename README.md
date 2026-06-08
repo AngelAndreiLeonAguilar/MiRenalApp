@@ -75,5 +75,3 @@ Moderación Activa: Herramientas para administradores que permiten moderar comen
 
 #👤 Gestión de Usuarios
 Perfiles Personalizados: Cada usuario cuenta con un perfil donde puede subir su imagen y gestionar su información personal.
-
-Seguridad: Sistema robusto de autenticación, recuperación de contraseña por correo electrónico y endurecimiento de servidor (Fail2Ban, UFW).
