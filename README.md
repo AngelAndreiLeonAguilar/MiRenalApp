@@ -1,14 +1,12 @@
-MiRenalApp (Kidnely Health) - Guía de Despliegue
+# MiRenalApp (Kidnely Health) - Guía de Despliegue
 
 Este proyecto utiliza Docker y Docker Compose para empaquetar y ejecutar tanto la aplicación web (Django) como el motor de base de datos (PostgreSQL 15) de forma centralizada en un único servidor.
 
-🛠️ Requisitos Previos
-Docker y Docker Compose instalados en el servidor de despliegue.
-
-Tener creada la red de Docker compartida (si utilizas un contenedor proxy inverso externo como Nginx):
-
-Bash
-sudo docker network create nginx-proxy-network
+## 🛠️ Requisitos Previos
+* Docker y Docker Compose instalados en el servidor de despliegue.
+* Tener creada la red de Docker compartida (si utilizas un contenedor proxy inverso externo como Nginx):
+  ```bash
+  sudo docker network create nginx-proxy-network
 🚀 Pasos para ejecutar el Despliegue
 Sigue estos pasos en la terminal de tu servidor para poner en marcha la aplicación:
 
@@ -26,33 +24,26 @@ nano .env
 Ejecuta el siguiente comando para compilar la imagen de Django e iniciar ambos servicios (web y db) en segundo plano:
 
 Bash
-sudo docker-compose up -d --build
-(Nota: Si tu sistema utiliza la versión moderna de Docker, puedes usar sudo docker compose up -d --build).
+sudo docker compose up -d --build
+⚡ Automatización e Inicialización del Sistema
+El contenedor está diseñado con un script de inicio inteligente (entrypoint.sh). Al ejecutar el comando anterior, el sistema realiza de forma automática las siguientes tareas:
 
-⚡ Tareas de Inicialización (Configuración de Django)
-Una vez que los contenedores estén completamente activos (Up), ejecuta los comandos de control de Django dentro del contenedor de la aplicación web:
+Espera a que el motor PostgreSQL esté listo para recibir conexiones.
 
-1. Correr migraciones de la base de datos
-Crea las tablas correspondientes dentro de PostgreSQL ejecutando:
+Ejecuta de forma interna las migraciones de la base de datos (migrate).
 
-Bash
-sudo docker exec -it mirenal_app python manage.py migrate
-2. Recolectar archivos estáticos
-Prepara el entorno para servir CSS, JavaScript e imágenes correctamente:
+Recolecta todos los archivos estáticos e imágenes del proyecto (collectstatic) para que Nginx los sirva decorados.
 
-Bash
-sudo docker exec -it mirenal_app python manage.py collectstatic --noinput
-3. Crear el administrador del sistema
-Genera la cuenta de superusuario para tener acceso total al panel de administración:
+👤 Crear el administrador del sistema (Único paso manual requerido)
+Una vez que los contenedores estén completamente activos, el único comando manual que debes ejecutar para generar tu cuenta de acceso total al panel de administración es:
 
 Bash
-sudo docker exec -it mirenal_app python manage.py createsuperuser
-🔍 Comandos Útiles de Monitoreo
-Ver el estado de los servicios: sudo docker ps o sudo docker-compose ps
+sudo docker exec -it django_app python manage.py createsuperuser
+🔄 Comando de Migración Manual (En caso de emergencia)
+Si en el futuro realizas cambios en los modelos de Django y necesitas forzar las migraciones manualmente sin reiniciar los contenedores, usa el contenedor correcto:
 
-Ver los logs de la aplicación en tiempo real: sudo docker-compose logs -f web
-
-Reiniciar el proyecto completo: sudo docker-compose restart
+Bash
+sudo docker exec -it django_app python manage.py migrate
 
 # MiRenalApp es una plataforma web integral diseñada para facilitar la interacción entre profesionales de la salud y pacientes, enfocándose en la evaluación del riesgo nutricional y el fomento de una comunidad activa a través de un foro interactivo.
 
