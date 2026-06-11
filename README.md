@@ -1,75 +1,315 @@
-# MiRenalApp (Kidnely Health) - Guía de Despliegue
+# MiRenalApp
 
-Este proyecto utiliza Docker y Docker Compose para empaquetar y ejecutar tanto la aplicación web (Django) como el motor de base de datos (PostgreSQL 15) de forma centralizada en un único servidor.
+MiRenalApp es una plataforma web integral desarrollada con Django y PostgreSQL, diseñada para facilitar la interacción entre profesionales de la salud y pacientes, enfocándose en la evaluación del riesgo nutricional y el fomento de una comunidad activa mediante un foro interactivo.
 
-## 🛠️ Requisitos Previos
-* Docker y Docker Compose instalados en el servidor de despliegue.
-* Tener creada la red de Docker compartida (si utilizas un contenedor proxy inverso externo como Nginx):
-  ```bash
-  sudo docker network create nginx-proxy-network
-🚀 Pasos para ejecutar el Despliegue
-Sigue estos pasos en la terminal de tu servidor para poner en marcha la aplicación:
+---
 
-1. Clonar el repositorio
-Bash
-git clone <URL_DE_TU_REPOSITORIO>
+# 🚀 Características Principales
+
+## 🏥 Sector Salud y Herramientas
+
+### Calculadora de IMC
+
+Herramienta rápida para determinar el Índice de Masa Corporal (IMC) del usuario.
+
+### Test de Riesgo Nutricional
+
+Evaluación dinámica basada en parámetros clínicos para detectar alertas preventivas relacionadas con el estado nutricional.
+
+### Panel Médico
+
+Área restringida para profesionales de la salud con herramientas específicas de gestión y seguimiento.
+
+---
+
+## 💬 Foro Comunitario
+
+### Lectura Pública
+
+Cualquier visitante puede consultar las experiencias compartidas por la comunidad.
+
+### Interacción Protegida
+
+Solo usuarios autenticados pueden publicar opiniones, comentar y participar activamente.
+
+### Sistema de Valoración
+
+Calificación mediante estrellas y sistema de "Likes" y "Dislikes" para destacar contenido relevante.
+
+### Moderación Administrativa
+
+Herramientas para la gestión de usuarios y moderación de contenido.
+
+---
+
+## 👤 Gestión de Usuarios
+
+### Registro y Autenticación
+
+Sistema de registro e inicio de sesión seguro.
+
+### Perfiles Personalizados
+
+Cada usuario dispone de un perfil donde puede gestionar su información personal y fotografía.
+
+### Recuperación de Contraseña
+
+Sistema de recuperación mediante correo electrónico (requiere configuración SMTP).
+
+---
+
+# 🛠️ Tecnologías Utilizadas
+
+* Python 3.11
+* Django 5.x
+* PostgreSQL 15
+* Docker
+* Docker Compose
+* Nginx
+* Gunicorn
+
+---
+
+# 📋 Requisitos Previos
+
+Antes de comenzar asegúrese de tener instalado:
+
+* Git
+* Docker Desktop
+* Docker Compose
+
+Verificar instalación:
+
+```bash
+docker --version
+docker compose version
+git --version
+```
+
+---
+
+# 📥 Instalación
+
+## 1. Clonar el repositorio
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
 cd MiRenalApp
-2. Configurar el archivo de entorno
-Crea tu archivo .env a partir de la plantilla de ejemplo y configura tus credenciales de producción y bases de datos:
+```
 
-### 🔑 Variables obligatorias en el .env
-Asegúrate de definir estas variables en tu archivo `.env`:
-- `SECRET_KEY`: Una clave larga y aleatoria.
-- `DEBUG`: `False` para producción.
-- `ALLOWED_HOSTS`: Tu dominio o IP del servidor.
-- `DB_NAME`, `DB_USER`, `DB_PASSWORD`: Credenciales para la base de datos PostgreSQL.
+---
 
-Bash
+## 2. Crear archivo de configuración
+
+### Windows
+
+```powershell
+copy .env.example .env
+notepad .env
+```
+
+### Linux
+
+```bash
 cp .env.example .env
 nano .env
-3. Construir y levantar los contenedores
-Ejecuta el siguiente comando para compilar la imagen de Django e iniciar ambos servicios (web y db) en segundo plano:
+```
 
-Bash
-sudo docker compose up -d --build
-⚡ Automatización e Inicialización del Sistema
-El contenedor está diseñado con un script de inicio inteligente (entrypoint.sh). Al ejecutar el comando anterior, el sistema realiza de forma automática las siguientes tareas:
+---
 
-Espera a que el motor PostgreSQL esté listo para recibir conexiones.
+## 3. Configurar variables de entorno
 
-Ejecuta de forma interna las migraciones de la base de datos (migrate).
+Editar el archivo `.env` y ajustar los valores según el entorno.
 
-Recolecta todos los archivos estáticos e imágenes del proyecto (collectstatic) para que Nginx los sirva decorados.
+Ejemplo:
 
-👤 Crear el administrador del sistema (Único paso manual requerido)
-Una vez que los contenedores estén completamente activos, el único comando manual que debes ejecutar para generar tu cuenta de acceso total al panel de administración es:
+```env
+SECRET_KEY=your-secret-key
+DEBUG=False
+ALLOWED_HOSTS=localhost,127.0.0.1
 
-Bash
-sudo docker exec -it django_app python manage.py createsuperuser
-🔄 Comando de Migración Manual (En caso de emergencia)
-Si en el futuro realizas cambios en los modelos de Django y necesitas forzar las migraciones manualmente sin reiniciar los contenedores, usa el contenedor correcto:
+DB_NAME=mirenalapp_db
+DB_USER=manuel
+DB_PASSWORD=change_me
+DB_HOST=db
+DB_PORT=5432
 
-Bash
-sudo docker exec -it django_app python manage.py migrate
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+```
 
-# MiRenalApp es una plataforma web integral diseñada para facilitar la interacción entre profesionales de la salud y pacientes, enfocándose en la evaluación del riesgo nutricional y el fomento de una comunidad activa a través de un foro interactivo.
+---
 
-#🚀 Características Principales
-#🏥 Sector Salud y Herramientas
-Calculadora de IMC: Herramienta rápida para determinar el índice de masa corporal.
+## 4. Construir e iniciar los contenedores
 
-Test de Riesgo Nutricional: Evaluación dinámica basada en parámetros clínicos para detectar alertas preventivas.
+```bash
+docker compose up --build
+```
 
-Panel Médico: Área restringida para profesionales con herramientas de gestión específicas.
+O en segundo plano:
 
-#💬 Foro Comunitario
-Lectura Pública: Cualquier visitante puede leer las experiencias de la comunidad.
+```bash
+docker compose up -d --build
+```
 
-Interacción Protegida: Solo usuarios autenticados pueden publicar opiniones y calificar el servicio.
+---
 
-Sistema de Valoración: Calificación por estrellas y sistema de "Likes/Dislikes" para destacar contenido relevante.
+# ⚙️ Inicialización Automática
 
-Moderación Activa: Herramientas para administradores que permiten moderar comentarios y gestionar usuarios.
+El proyecto incorpora un script de inicio (`entrypoint.sh`) que realiza automáticamente:
 
-#👤 Gestión de Usuarios
-Perfiles Personalizados: Cada usuario cuenta con un perfil donde puede subir su imagen y gestionar su información personal.
+1. Esperar a que PostgreSQL esté disponible.
+2. Ejecutar migraciones de Django.
+3. Recolectar archivos estáticos.
+4. Iniciar Gunicorn.
+
+No es necesario ejecutar migraciones manualmente durante el primer despliegue.
+
+---
+
+# 👤 Crear Usuario Administrador
+
+Una vez iniciado el sistema:
+
+```bash
+docker exec -it django_app python manage.py createsuperuser
+```
+
+Seguir las instrucciones para crear la cuenta administradora.
+
+---
+
+# 🔄 Migraciones Manuales
+
+Si se realizan cambios en los modelos:
+
+```bash
+docker exec -it django_app python manage.py makemigrations
+docker exec -it django_app python manage.py migrate
+```
+
+---
+
+# 🌐 Acceso al Sistema
+
+Aplicación principal:
+
+```text
+http://localhost:8000
+```
+
+Panel administrativo:
+
+```text
+http://localhost:8000/admin
+```
+
+---
+
+# 📁 Estructura del Proyecto
+
+```text
+MiRenalApp/
+│
+├── apps/
+│   ├── blog/
+│   ├── citas/
+│   ├── pacientes/
+│   └── usuarios/
+│
+├── MiRenalApp/
+├── templates/
+├── media/
+├── staticfiles/
+│
+├── Dockerfile
+├── docker-compose.yml
+├── nginx.conf
+├── entrypoint.sh
+├── requirements.txt
+├── manage.py
+└── README.md
+```
+
+---
+
+# 🐳 Administración de Docker
+
+Ver contenedores:
+
+```bash
+docker ps
+```
+
+Detener contenedores:
+
+```bash
+docker compose down
+```
+
+Reiniciar:
+
+```bash
+docker compose restart
+```
+
+Reconstruir completamente:
+
+```bash
+docker compose down
+docker compose build --no-cache
+docker compose up
+```
+
+---
+
+# ❗ Solución de Problemas
+
+## Error: password authentication failed for user
+
+Si se modificaron las credenciales de PostgreSQL después de haber creado el volumen:
+
+```bash
+docker compose down
+docker volume rm mirenalapp_postgres_data
+docker compose up --build
+```
+
+Esto recreará la base de datos utilizando las credenciales actuales definidas en `.env`.
+
+---
+
+## Error: SECRET_KEY not found
+
+Verificar que exista el archivo `.env` y contenga:
+
+```env
+SECRET_KEY=your-secret-key
+```
+
+---
+
+## Error: nginx-proxy-network not found
+
+Crear la red manualmente:
+
+```bash
+docker network create nginx-proxy-network
+```
+
+---
+
+# 🔒 Seguridad
+
+* Nunca subir el archivo `.env` al repositorio.
+* Mantener `.env` incluido en `.gitignore`.
+* Utilizar contraseñas seguras en producción.
+* Configurar `DEBUG=False` en producción.
+* Configurar correctamente `ALLOWED_HOSTS`.
+* Utilizar HTTPS en ambientes productivos.
+
+---
+
+# 📄 Licencia
+
+Proyecto académico desarrollado con fines educativos y de investigación.
