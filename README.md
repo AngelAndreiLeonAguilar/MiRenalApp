@@ -52,12 +52,6 @@ Sistema de registro e inicio de sesión seguro.
 
 Cada usuario dispone de un perfil donde puede gestionar su información personal y fotografía.
 
-### Recuperación de Contraseña
-
-Sistema de recuperación mediante correo electrónico (requiere configuración SMTP).
-
----
-
 # 🛠️ Tecnologías Utilizadas
 
 * Python 3.11
